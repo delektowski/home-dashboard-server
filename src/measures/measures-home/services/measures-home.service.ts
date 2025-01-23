@@ -17,4 +17,8 @@ export class MeasuresHomeService {
     const createMeasuresHome = new this.measuresHomeModel(measuresHomeDto);
     return createMeasuresHome.save();
   }
+
+  async getMeasuresHome(placeName: string): Promise<MeasuresHome[] | null> {
+    return this.measuresHomeModel.find({ placeName }).exec();
+  }
 }

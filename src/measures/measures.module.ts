@@ -6,6 +6,7 @@ import {
   MeasuresHome,
   MeasuresHomeSchema,
 } from './measures-home/schemas/measures-home.schema';
+import { MeasuresHomeResolver } from './measures-home/measures-home.resolver';
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import {
     ]),
   ],
   controllers: [MeasuresHomeController],
-  providers: [MeasuresHomeService],
+  providers: [MeasuresHomeService, MeasuresHomeResolver],
 })
 export class MeasuresModule {}
