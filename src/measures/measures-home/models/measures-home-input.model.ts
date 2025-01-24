@@ -1,7 +1,7 @@
-import { Field, Float, ObjectType } from '@nestjs/graphql';
+import { Field, Float, InputType } from '@nestjs/graphql';
 
-@ObjectType()
-export class MeasuresHomeModel {
+@InputType()
+export class MeasuresHomeInput {
   @Field({ description: 'Name of the place where measure device is' })
   placeName: string;
 

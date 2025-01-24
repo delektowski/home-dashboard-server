@@ -9,5 +9,5 @@ export class MeasuresHomeDto {
 
   @IsOptional()
   @IsNumber()
-  humidity: number;
+  humidity?: number;
 }

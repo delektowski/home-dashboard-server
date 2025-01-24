@@ -1,6 +1,7 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { MeasuresHomeService } from './services/measures-home.service';
 import { MeasuresHomeModel } from './models/measures-home.model';
+import { MeasuresHomeInput } from './models/measures-home-input.model';
 
 @Resolver(() => MeasuresHomeModel)
 export class MeasuresHomeResolver {
@@ -19,5 +20,12 @@ export class MeasuresHomeResolver {
     placeName: string,
   ) {
     return this.measuresHomeService.getMeasuresHome(placeName);
+  }
+
+  @Mutation(() => MeasuresHomeModel)
+  async createMeasuresHome(
+    @Args('measuresHomeData') measuresHomeData: MeasuresHomeInput,
+  ) {
+    return this.measuresHomeService.createMeasuresHome(measuresHomeData);
   }
 }
