@@ -1,10 +1,10 @@
 import { HydratedDocument } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export type MeasuresHomeDocument = HydratedDocument<MeasuresHome>;
+export type MeasuresHomeDocument = HydratedDocument<MeasuresHomeEntity>;
 
 @Schema()
-export class MeasuresHome {
+export class MeasuresHomeEntity {
   @Prop({ required: true })
   placeName: string;
 
@@ -15,4 +15,4 @@ export class MeasuresHome {
   humidity: number;
 }
 
-export const MeasuresHomeSchema = SchemaFactory.createForClass(MeasuresHome);
+export const MeasuresHomeSchema = SchemaFactory.createForClass(MeasuresHomeEntity);

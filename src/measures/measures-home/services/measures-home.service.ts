@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { MeasuresHomeDto } from '../dto/measures-home.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { MeasuresHome } from '../schemas/measures-home.schema';
+import { MeasuresHomeEntity } from '../schemas/measures-home.schema';
 import { Model } from 'mongoose';
 
 @Injectable()
 export class MeasuresHomeService {
   constructor(
-    @InjectModel(MeasuresHome.name)
-    private measuresHomeModel: Model<MeasuresHome>,
+    @InjectModel(MeasuresHomeEntity.name)
+    private measuresHomeModel: Model<MeasuresHomeEntity>,
   ) {}
 
   async createMeasuresHome(
     measuresHomeDto: MeasuresHomeDto,
-  ): Promise<MeasuresHome> {
+  ): Promise<MeasuresHomeEntity> {
     const createMeasuresHome = new this.measuresHomeModel(measuresHomeDto);
     return createMeasuresHome.save();
   }
 
-  async getMeasuresHome(placeName: string): Promise<MeasuresHome[] | null> {
+  async getMeasuresHome(placeName: string): Promise<MeasuresHomeEntity[] | null> {
     return this.measuresHomeModel.find({ placeName }).exec();
   }
 }

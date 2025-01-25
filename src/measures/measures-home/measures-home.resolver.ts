@@ -1,7 +1,11 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { MeasuresHomeService } from './services/measures-home.service';
 import { MeasuresHomeModel } from './models/measures-home.model';
 import { MeasuresHomeInput } from './models/measures-home-input.model';
+import { MeasuresHomeEntity } from './schemas/measures-home.schema';
+import { PubSub } from 'graphql-subscriptions';
+
+const pubSub = new PubSub();
 
 @Resolver(() => MeasuresHomeModel)
 export class MeasuresHomeResolver {
@@ -26,6 +30,13 @@ export class MeasuresHomeResolver {
   async createMeasuresHome(
     @Args('measuresHomeData') measuresHomeData: MeasuresHomeInput,
   ) {
-    return this.measuresHomeService.createMeasuresHome(measuresHomeData);
+    const createdMeasuresHome = await this.measuresHomeService.createMeasuresHome(measuresHomeData);
+    await pubSub.publish('measuresHomeAdded', { measuresHomeAdded: createdMeasuresHome });
+    return createdMeasuresHome;
+  }
+
+  @Subscription(() => MeasuresHomeModel)
+  measuresHomeAdded() {
+    return pubSub.asyncIterableIterator('measuresHomeAdded');
   }
 }
