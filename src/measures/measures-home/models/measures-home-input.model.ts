@@ -17,7 +17,6 @@ export class MeasuresHomeInput {
     description: 'Humidity value',
     nullable: true,
   })
-  @Min(0)
-  @Max(100)
+
   humidity?: number;
 }

@@ -15,7 +15,6 @@ export class MeasuresHomeDto {
 
   @IsOptional()
   @IsNumber()
-  @Min(0)
-  @Max(100)
+
   humidity?: number;
 }
