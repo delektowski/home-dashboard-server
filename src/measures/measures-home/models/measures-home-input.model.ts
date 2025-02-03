@@ -17,6 +17,6 @@ export class MeasuresHomeInput {
     description: 'Humidity value',
     nullable: true,
   })
-
   humidity?: number;
+
 }

@@ -15,6 +15,9 @@ export class MeasuresHomeEntity {
 
   @Prop()
   humidity: number;
+
+  @Prop({ default: Date.now })
+  createdAt: Date;
 }
 
 export const MeasuresHomeSchema = SchemaFactory.createForClass(MeasuresHomeEntity);

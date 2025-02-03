@@ -14,6 +14,8 @@ export class MeasuresHomeService {
   async createMeasuresHome(
     measuresHomeDto: MeasuresHomeDto,
   ): Promise<MeasuresHomeEntity> {
+    const createdAt = {createdAt: new Date()}
+    console.log("measuresHomeDto", measuresHomeDto)
     const createMeasuresHome = new this.measuresHomeModel(measuresHomeDto);
     return createMeasuresHome.save();
   }

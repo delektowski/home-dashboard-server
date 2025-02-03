@@ -18,4 +18,7 @@ export class MeasuresHomeModel {
     nullable: true,
   })
   humidity?: number;
+
+  @Field({ description: 'Creation date of the measure'})
+  createdAt?: Date;
 }

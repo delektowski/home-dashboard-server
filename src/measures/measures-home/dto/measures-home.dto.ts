@@ -1,5 +1,11 @@
-import { IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
-import { Types } from 'mongoose';
+import {
+  IsDate,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+} from 'class-validator';
 
 export class MeasuresHomeDto {
   @IsNumber()
@@ -15,6 +21,8 @@ export class MeasuresHomeDto {
 
   @IsOptional()
   @IsNumber()
-
   humidity?: number;
+
+  @IsDate()
+  createdAt: Date;
 }

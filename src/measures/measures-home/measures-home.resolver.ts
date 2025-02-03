@@ -30,7 +30,8 @@ export class MeasuresHomeResolver {
   async createMeasuresHome(
     @Args('measuresHomeData') measuresHomeData: MeasuresHomeInput,
   ) {
-    const createdMeasuresHome = await this.measuresHomeService.createMeasuresHome(measuresHomeData);
+    const createdAt = new Date();
+    const createdMeasuresHome = await this.measuresHomeService.createMeasuresHome({ ...measuresHomeData, createdAt });
     await pubSub.publish('measuresHomeAdded', { measuresHomeAdded: createdMeasuresHome });
     return createdMeasuresHome;
   }
