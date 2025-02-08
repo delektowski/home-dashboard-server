@@ -26,6 +26,21 @@ export class MeasuresHomeResolver {
     return this.measuresHomeService.getMeasuresHome(placeName);
   }
 
+  @Query(() => MeasuresHomeModel, {
+    name: 'getCurrentMeasureHome',
+    description: 'Provides a current measure data according to the place name',
+    nullable: true,
+  })
+  async getCurrentMeasuresHome(
+    @Args('placeName', {
+      description: 'Place name where measure device is',
+      nullable: false,
+    })
+    placeName: string,
+  ) {
+    return this.measuresHomeService.getCurrentMeasureHome(placeName);
+  }
+
   @Mutation(() => MeasuresHomeModel)
   async createMeasuresHome(
     @Args('measuresHomeData') measuresHomeData: MeasuresHomeInput,
@@ -34,6 +49,16 @@ export class MeasuresHomeResolver {
     const createdMeasuresHome = await this.measuresHomeService.createMeasuresHome({ ...measuresHomeData, createdAt });
     await pubSub.publish('measuresHomeAdded', { measuresHomeAdded: createdMeasuresHome });
     return createdMeasuresHome;
+  }
+
+  @Mutation(() => MeasuresHomeModel)
+  async createCurrentMeasuresHome(
+    @Args('measuresHomeData') measuresHomeData: MeasuresHomeInput,
+  ) {
+    const createdAt = new Date();
+    const createdCurrentMeasuresHome = await this.measuresHomeService.updateCurrentMeasureHome({ ...measuresHomeData, createdAt });
+    await pubSub.publish('measuresHomeAdded', { measuresHomeAdded: createdCurrentMeasuresHome });
+    return createdCurrentMeasuresHome;
   }
 
   @Subscription(() => MeasuresHomeModel)

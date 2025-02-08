@@ -1,6 +1,5 @@
 import { HydratedDocument, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Max, Min } from 'class-validator';
 
 export type MeasuresHomeDocument = HydratedDocument<MeasuresHomeEntity>;
 
