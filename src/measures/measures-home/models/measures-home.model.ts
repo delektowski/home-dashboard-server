@@ -19,6 +19,13 @@ export class MeasuresHomeModel {
   })
   humidity?: number;
 
-  @Field({ description: 'Creation date of the measure'})
-  createdAt?: Date;
+  @Field({ description: 'Creation date of the measure' })
+  createdAt: Date;
+
+  @Field({
+    description:
+      'Indicates whether the measure is send for handling  current measure display',
+    nullable: true,
+  })
+  isForCurrentMeasure?: boolean;
 }

@@ -2,7 +2,6 @@ import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { MeasuresHomeService } from './services/measures-home.service';
 import { MeasuresHomeModel } from './models/measures-home.model';
 import { MeasuresHomeInput } from './models/measures-home-input.model';
-import { MeasuresHomeEntity } from './schemas/measures-home.schema';
 import { PubSub } from 'graphql-subscriptions';
 
 const pubSub = new PubSub();
@@ -45,9 +44,21 @@ export class MeasuresHomeResolver {
   async createMeasuresHome(
     @Args('measuresHomeData') measuresHomeData: MeasuresHomeInput,
   ) {
+    const isForCurrentMeasure = false;
     const createdAt = new Date();
-    const createdMeasuresHome = await this.measuresHomeService.createMeasuresHome({ ...measuresHomeData, createdAt });
-    await pubSub.publish('measuresHomeAdded', { measuresHomeAdded: createdMeasuresHome });
+    const createdMeasuresHome =
+      await this.measuresHomeService.createMeasuresHome({
+        ...measuresHomeData,
+        createdAt,
+      });
+
+    await pubSub.publish('measuresHomeAdded', {
+      measuresHomeAdded: {
+        ...measuresHomeData,
+        createdAt,
+        isForCurrentMeasure,
+      },
+    });
     return createdMeasuresHome;
   }
 
@@ -55,9 +66,20 @@ export class MeasuresHomeResolver {
   async createCurrentMeasuresHome(
     @Args('measuresHomeData') measuresHomeData: MeasuresHomeInput,
   ) {
+    const isForCurrentMeasure = true;
     const createdAt = new Date();
-    const createdCurrentMeasuresHome = await this.measuresHomeService.updateCurrentMeasureHome({ ...measuresHomeData, createdAt });
-    await pubSub.publish('measuresHomeAdded', { measuresHomeAdded: createdCurrentMeasuresHome });
+    const createdCurrentMeasuresHome =
+      await this.measuresHomeService.updateCurrentMeasureHome({
+        ...measuresHomeData,
+        createdAt,
+      });
+    await pubSub.publish('measuresHomeAdded', {
+      measuresHomeAdded: {
+        ...measuresHomeData,
+        createdAt,
+        isForCurrentMeasure,
+      },
+    });
     return createdCurrentMeasuresHome;
   }
 

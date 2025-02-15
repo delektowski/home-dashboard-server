@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsDate,
   IsNumber,
   IsOptional,
@@ -25,4 +26,7 @@ export class MeasuresHomeDto {
 
   @IsDate()
   createdAt: Date;
+
+  @IsBoolean()
+  isForCurrentMeasure?: boolean
 }
