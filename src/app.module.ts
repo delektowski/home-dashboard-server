@@ -8,7 +8,7 @@ import { join } from 'path';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb://user:pass@localhost:27017/home_dashboard?authSource=admin',
+      process.env.DATABASE_URI || 'mongodb://user:pass@mongodb:27017/home_dashboard?authSource=admin',
     ),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
