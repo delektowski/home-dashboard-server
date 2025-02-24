@@ -21,4 +21,4 @@ RUN npm install
 COPY --from=builder /app/dist ./dist
 EXPOSE ${PORT}
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start:prod"]
