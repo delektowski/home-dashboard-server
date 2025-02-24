@@ -1,0 +1,3 @@
+dashboard-server.deldev.ovh {
+  reverse_proxy backend:3000
+}

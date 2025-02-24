@@ -14,8 +14,6 @@ services:
     depends_on:
       - mongodb
 
-
-
   mongodb:
     image: mongo:latest
     container_name: mongodb
@@ -30,3 +28,20 @@ services:
       - type: bind
         source: ./data
         target: /data/db
+
+  caddy:
+    image: caddy:latest
+    container_name: caddy-backend
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+
+volumes:
+  caddy_data:
+  caddy_config:
