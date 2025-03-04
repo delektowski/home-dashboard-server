@@ -1,3 +1,16 @@
 dashboard-server.deldev.ovh {
-  reverse_proxy backend:3000
+  # Enable TLS and automatic HTTPS
+  tls {
+    on_demand
+  }
+
+  # Make sure Caddy handles ACME challenges before proxying
+  handle /.well-known/acme-challenge/* {
+    respond 200
+  }
+
+  # Then proxy everything else
+  handle {
+    reverse_proxy backend:3000
+  }
 }
